@@ -1,51 +1,50 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Dice : MonoBehaviour
 {
     Rigidbody rb;
-    
+
     bool hasLanded;
     bool thrown;
 
     Vector3 initPosition;
 
     public DiceSide[] diceSides;
-   
+
     public int diceValue;
-    
+
     public TextMeshProUGUI totalScore;
 
     // Start is called before the first frame update
     void Start()
     {
         initPosition = transform.position;
-        rb = GetComponent<Rigidbody>();       
-    
-       Print("void Start")
-       Print("thrown:" + thrown) 
-       Print("hasLanded:" + hasLanded ) 
-    } 
-   public void RollDice()
+        rb = GetComponent<Rigidbody>();
+
+        Print("void Start")
+       Print("thrown:" + thrown)
+       Print("hasLanded:" + hasLanded)
+    }
+    public void RollDice()
     {
         Print("void RollDice")
-        Print("thrown:" + thrown) 
-        Print("hasLanded:" + hasLanded ) 
-        if(!thrown && !hasLanded)
+         Print("thrown:" + thrown)
+         Print("hasLanded:" + hasLanded)
+         if (!thrown && !hasLanded)
         {
             StartCoroutine(RollDiceDelay());
             thrown = true;
             rb.AddTorque(Random.Range(100, 900), Random.Range(100, 900), Random.Range(100, 900));
         }
-        else if(thrown && hasLanded)
+        else if (thrown && hasLanded)
         {
             //reset the dice position
             Reset();
         }
     }
-    
+
     IEnumerator RollDiceDelay()
     {
         yield return new WaitForSeconds(5);
@@ -62,19 +61,19 @@ public class Dice : MonoBehaviour
 
     void Update()
     {
-    	if(Input.GetKey(KeyCode.R)) 
+        if (Input.GetKey(KeyCode.R))
         {
-        	if(rb.IsSleeping() && !hasLanded && !thrown)
-        	{
-        		RollDice();
-            
-    	    }
+            if (rb.IsSleeping() && !hasLanded && !thrown)
+            {
+                RollDice();
+
+            }
             //roll the dice again
-            
+
         }
 
-    
-        
+
+
     }
 
     /*void RollAgain()//needed to rename
@@ -88,18 +87,18 @@ public class Dice : MonoBehaviour
     public int SideValueCheck()
     {
         diceValue = 0;
-        
-        foreach(DiceSide side in diceSides)
+
+        foreach (DiceSide side in diceSides)
         {
-            if(side.OnGround())
+            if (side.OnGround())
             {
                 diceValue = side.sideValue;
                 totalScore.text = "Score: " + diceValue.ToString(); // I changed score to diceValue
                 return diceValue;
-                
+
                 //send results to GameManager script
                 //GameManager.instance.RollDice(diceValue);
-            }            
+            }
         }
     }
 }

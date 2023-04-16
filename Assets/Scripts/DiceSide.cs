@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DiceSide : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class DiceSide : MonoBehaviour
 
     void OnTriggerStay(Collider col)
     {
-        if(col.CompareTag("Ground"))
+        if (col.CompareTag("Ground"))
         {
             onGround = true;
         }
@@ -18,7 +16,7 @@ public class DiceSide : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
-        if(col.CompareTag("Ground"))
+        if (col.CompareTag("Ground"))
         {
             onGround = false;
         }
